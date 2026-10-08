@@ -6,39 +6,39 @@
 # TODO: Eliminate this copy — Scaffolder should pull from template repo directly.
 
 project:
-  slug: "{{ values.project_name }}"
-  owner_email: "{{ values.user_email }}"
-  content_type: "{{ values.content_type }}"
-  deployment_mode: "{{ values.deployment_mode }}"
-  initiative_key: "{{ values.initiative_key }}"
-  showroom_type: "{{ values.showroom_type }}"
-  intake_type: "{{ values.intake_type }}"
+  slug: "ph-nate-whatever"
+  owner_email: "nstephan@redhat.com"
+  content_type: "lab"
+  deployment_mode: "rhdp-published"
+  initiative_key: "none"
+  showroom_type: "classic"
+  intake_type: "new"
   automation_type: ""               # ansible | gitops | both - captured in intake Phase 5, not from template
-  description: "{{ values.project_description | replace('\r', '') | replace('\n', ' ') | replace('\t', ' ') | replace('\\', '\\\\') | replace('"', '\\"') }}"
+  description: "whatever"
   # content_reviewer_email and infra_reviewer_email are assigned by the RHDP team — not set by the author
-  jira_ticket: ""
-  workflow_id: ""
+  jira_ticket: "RHDPCD-2104"
+  workflow_id: "ea6b905b-2940-4114-9c66-dee116a87485"
 
 spec:
   title: ""
   learning_objectives: []
   modules: []              # [{id, title, duration_min}] — written by intake Phase 4; id is stable (e.g. module-01)
   environment:
-    platform: "{{ values.platform }}"               # ocp | rhel-vms — from template
+    platform: "ocp"               # ocp | rhel-vms — from template
     topology: ""               # shared-cluster | per-student | cnv-pool — captured in intake
-    cloud_provider: "{{ values.cloud_provider }}"   # cnv | aws | rosa | aro — from template
-    max_concurrent_users: null # required if topology = shared-cluster
+    cloud_provider: "aws"   # cnv | aws | rosa | aro — from template
+    max_concurrent_users:      # required if topology = shared-cluster
 
     # --- OCP-specific fields (only when platform = ocp) ---
-    ocp_version: "{{ values.ocp_version }}"         # e.g. 4.20 — from template
-    cluster_type: "{{ values.cluster_type }}"       # sno | multinode — from template
-    control_plane_instance_count: null # 1 if sno, 3 if multinode
-    control_plane_cpu: null            # 32 if sno, 16 if multinode
-    control_plane_ram_gb: null         # 128 if sno, 64 if multinode
-    worker_count: null                 # number of OCP worker nodes
-    worker_cpu: null                   # vCPU per worker
-    worker_ram_gb: null                # RAM per worker in GB
-    worker_disk_gb: null               # disk per worker in GB
+    ocp_version: "4.21"         # e.g. 4.20 — from template
+    cluster_type: "sno"       # sno | multinode — from template
+    control_plane_instance_count:      # 1 if sno, 3 if multinode
+    control_plane_cpu:                 # 32 if sno, 16 if multinode
+    control_plane_ram_gb:              # 128 if sno, 64 if multinode
+    worker_count:                      # number of OCP worker nodes
+    worker_cpu:                        # vCPU per worker
+    worker_ram_gb:                     # RAM per worker in GB
+    worker_disk_gb:                    # disk per worker in GB
 
     # --- VM-specific fields (only when platform = rhel-vms) ---
     # Each entry: {role, count, cpu, ram_gb, disk_gb, os, version}
@@ -56,47 +56,39 @@ spec:
     external_services: []              # named external service dependencies e.g. [github.com]
     gpu_nodes: 0                       # number of GPU nodes (0 = none)
     gpu_type: ""                       # e.g. NVIDIA A100 40GB (required if gpu_nodes > 0)
-  duration_hours: null
+  duration_hours:
   audience: ""               # beginner | intermediate | advanced
 
 development:
   automation:
-{%- if values.automation_type == 'gitops' or values.automation_type == 'both' %}
-    gitops:
-      status: not_started
-{%- endif %}
-{%- if values.automation_type == 'ansible' or values.automation_type == 'both' %}
-    ansible:
-      status: not_started
-{%- endif %}
   e2e:
     status: not_started
   healthCheck:
     status: not_started
 
 compliance:
-  last_hard_check: null
-  hard_result: null
+  last_hard_check:
+  hard_result:
 
 tracking:
   paused: false
-  pause_reason: null
+  pause_reason:
 
 # Approval checklist — filled collaboratively by author + skill + system + reviewers
 approval_checklist:
 
   content:
-    prerequisites_verifiable: null
+    prerequisites_verifiable:
     assessment_strategy: ""
     catalog_gap: ""
     design_overview: ""
     module_summaries: []
-    rcars_overlap_pct: null
+    rcars_overlap_pct:
     rcars_top_matches: []
     rejections: []
 
   infra:
-    peak_environments: null
+    peak_environments:
     cost_per_run_est: ""
     provisioning_time_est: ""
     agnosticv_base_ci: ""
